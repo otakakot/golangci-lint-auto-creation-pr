@@ -27,7 +27,7 @@ jobs:
         with:
           version: latest
           args: --allow-parallel-runners
-      - name: Golangci-lint Version
+      - name: Auto Creation PR
         if: failure()
         env:
           GH_USER_EMAIL: 126062861+otakakot[bot]@users.noreply.github.com
