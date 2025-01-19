@@ -35,13 +35,10 @@ jobs:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         run: |
           version=$(golangci-lint --version | awk '{print $4}')
-          echo ${version} > .golangci.version
-          git branch feature/golangci-lint-v${version}
-          git switch feature/golangci-lint-v${version}
+          git branch feature/golangci-lint-${version}
+          git switch feature/golangci-lint-${version}
           git config --global user.email ${{ env.GH_USER_EMAIL }}
           git config --global user.name ${{ env.GH_USER_NAME }}
-          git add .golangci.version
-          git commit -m "update golangci-lint version to v${version}"
-          git push --set-upstream origin feature/golangci-lint-v${version}
-          gh pr create --title "Update golangci-lint version" --body "update golangci-lint version to v${version}" --base main --head feature/golangci-lint-v${version}
-  
+          git commit --allow-empty -m "update golangci-lint version to ${version}"
+          git push --set-upstream origin feature/golangci-lint-${version}
+          gh pr create --title "Update golangci-lint version" --body "update golangci-lint version to ${version}" --base main --head feature/golangci-lint-${version}
